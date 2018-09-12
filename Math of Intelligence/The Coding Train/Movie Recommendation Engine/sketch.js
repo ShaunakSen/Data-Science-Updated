@@ -11,20 +11,16 @@ function preload(){
 
 function setup(){
     noCanvas();
-    //console.log(data);
-
     
-
     // we want to create a lookup object where key will be name of critic
     // value will be the object
 
-   
-
-    
 
     // using p5.js to create dropdowns
 
     var dropdown = createSelect('');
+
+    // loop to populate dropdown and lookup objects
 
     for (var i = 0; i < data.users.length; ++i){
 
@@ -33,10 +29,11 @@ function setup(){
         // populate the dropdown with names
         dropdown.option(name);
 
+        // populate lookup obj
         users[name] = data.users[i];
     }
 
-    console.log(users);
+    // console.log(users);
 
     // create a button
 
@@ -57,6 +54,8 @@ function setup(){
 
         var name = dropdown.value();
 
+        // create an obj of (name) -> similarity score
+
         var similarityScores = {};
 
         for(var i = 0; i < data.users.length; ++i){
@@ -74,6 +73,8 @@ function setup(){
         }
         //console.log(similarityScores);
 
+        // sort users desc based on similarity scores
+
         data.users.sort(compareSimilarity);
 
         function compareSimilarity(a, b){
@@ -82,6 +83,8 @@ function setup(){
             return score2 - score1;
         }
         
+        // select top 5 similar users and display them
+
         var k = 5;
 
         for (var i = 0; i < k; ++i){
@@ -94,6 +97,8 @@ function setup(){
         
     }
 }
+
+// calculate similarity score for 2 users
 
 function euclideanDistance(name1, name2){
         
