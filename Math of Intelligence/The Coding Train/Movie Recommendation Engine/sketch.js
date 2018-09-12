@@ -76,10 +76,12 @@ function setup(){
         }
 
         console.log(newUser);
+
+        findNearestNeighbors(newUser);
     }
 
     
-    function findNearestNeighbors(){
+    function findNearestNeighbors(user){
 
         //clear result divs
 
@@ -96,17 +98,11 @@ function setup(){
         var similarityScores = {};
 
         for(var i = 0; i < data.users.length; ++i){
-            var otherUser = data.users[i].name;
+            var otherUser = data.users[i];
+            var similarity = euclideanDistance(user, otherUser);
             
-            if (otherUser != name){
-                // compute similarity score
-                var similarity = euclideanDistance(name,otherUser)
-                similarityScores[otherUser] = similarity
-            }
-            else{
-                // same user, assign -1 
-                similarityScores[otherUser] = -1
-            }
+            similarityScores[otherUser.name] = similarity;
+            
         }
         //console.log(similarityScores);
 
@@ -125,8 +121,9 @@ function setup(){
         var k = 5;
 
         for (var i = 0; i < k; ++i){
-            var name = data.users[i].name
-            var div = createDiv(name + ': Similarity Score: ' + similarityScores[name]);
+            var name = data.users[i].name;
+            var score = nf(similarityScores[name], 1, 2)
+            var div = createDiv(name + ': Similarity Score: ' + score);
             resultDivs.push(div);
             resultP.parent(div);
         }
@@ -137,22 +134,9 @@ function setup(){
 
 // calculate similarity score for 2 users
 
-function euclideanDistance(name1, name2){
-        
+function euclideanDistance(ratings1, ratings2){
 
-    ratings1 = users[name1];
-    ratings2 = users[name2];
-
-    // get list of movies that of the critics
-
-    var titles = Object.keys(ratings1)
-
-    // remove the 'name' and 'timestamp' properties from the array
-
-    var i = titles.indexOf('name');
-    titles.splice(i, 1);
-    var j = titles.indexOf('timestamp');
-    titles.splice(j, 1);
+    var titles = data.titles;
     
     var sumSquares = 0;
     for (var i = 0; i < titles.length; ++i){
