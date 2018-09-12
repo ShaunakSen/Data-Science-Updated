@@ -1,6 +1,8 @@
 var data;
 var resultP;
 
+// we want to create a lookup object where key will be name of critic
+// value will be the object
 var users = {};
 
 var resultDivs = [];
@@ -11,10 +13,23 @@ function preload(){
 
 function setup(){
     noCanvas();
-    
-    // we want to create a lookup object where key will be name of critic
-    // value will be the object
 
+    // creating a form for a new user to submit ratings
+
+    var titles = data.titles;
+    var dropdowns = []
+    
+    for (var i = 0; i < titles.length; ++i){
+        var div = createDiv(titles[i]);
+        var dropdown = createSelect('');
+        dropdown.title = titles[i];
+        dropdown.option('not seen'); 
+        dropdown.parent(div);
+        dropdowns.push(dropdown);
+        for (var star = 1; star < 6; ++star){
+            dropdown.option(star);
+        }
+    }
 
     // using p5.js to create dropdowns
 
@@ -40,7 +55,29 @@ function setup(){
     var button = createButton('Submit');
     resultP = createP('');
 
-    button.mousePressed(findNearestNeighbors);
+    button.mousePressed(predictRatings);
+
+    function predictRatings(){
+
+        // first we want to create an obj with move_title -> rating mapping
+
+        var newUser = {};
+
+        console.log(dropdowns);
+
+        for (var i = 0; i < dropdowns.length; ++i){
+            var title = dropdowns[i].title;
+            var rating = dropdowns[i].value();
+            if (rating == 'not seen'){
+                rating = null;
+            }
+
+            newUser[title] = rating;
+        }
+
+        console.log(newUser);
+    }
+
     
     function findNearestNeighbors(){
 
