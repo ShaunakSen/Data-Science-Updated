@@ -18,6 +18,8 @@ function setup(){
 
     var titles = data.titles;
     var dropdowns = []
+
+    // for each title create a dropdown with options
     
     for (var i = 0; i < titles.length; ++i){
         var div = createDiv(titles[i]);
@@ -25,24 +27,18 @@ function setup(){
         dropdown.title = titles[i];
         dropdown.option('not seen'); 
         dropdown.parent(div);
-        dropdowns.push(dropdown);
         for (var star = 1; star < 6; ++star){
             dropdown.option(star);
         }
+        dropdowns.push(dropdown);
     }
 
-    // using p5.js to create dropdowns
 
-    var dropdown = createSelect('');
-
-    // loop to populate dropdown and lookup objects
+    // loop to populate lookup object
 
     for (var i = 0; i < data.users.length; ++i){
 
         name = data.users[i].name;
-
-        // populate the dropdown with names
-        dropdown.option(name);
 
         // populate lookup obj
         users[name] = data.users[i];
@@ -59,11 +55,9 @@ function setup(){
 
     function predictRatings(){
 
-        // first we want to create an obj with move_title -> rating mapping
+        // first we want to create an obj for new user with move_title -> rating mapping
 
         var newUser = {};
-
-        console.log(dropdowns);
 
         for (var i = 0; i < dropdowns.length; ++i){
             var title = dropdowns[i].title;
@@ -77,11 +71,13 @@ function setup(){
 
         console.log(newUser);
 
+        // find nearest neighbors to that user
+
         findNearestNeighbors(newUser);
     }
 
     
-    function findNearestNeighbors(user){
+    function findNearestNeighbors(newUser){
 
         //clear result divs
 
@@ -91,15 +87,13 @@ function setup(){
 
         resultDivs = [];
 
-        var name = dropdown.value();
-
         // create an obj of (name) -> similarity score
 
         var similarityScores = {};
 
         for(var i = 0; i < data.users.length; ++i){
             var otherUser = data.users[i];
-            var similarity = euclideanDistance(user, otherUser);
+            var similarity = euclideanDistance(newUser, otherUser);
             
             similarityScores[otherUser.name] = similarity;
             
@@ -115,19 +109,38 @@ function setup(){
             var score2 = similarityScores[b.name];
             return score2 - score1;
         }
-        
-        // select top 5 similar users and display them
 
-        var k = 5;
+        // get a list of all movies not rated
 
-        for (var i = 0; i < k; ++i){
-            var name = data.users[i].name;
-            var score = nf(similarityScores[name], 1, 2)
-            var div = createDiv(name + ': Similarity Score: ' + score);
-            resultDivs.push(div);
-            resultP.parent(div);
+        for (var i = 0; i < data.titles.length; ++i){
+            var title = data.titles[i];
+            if (newUser[title] == null){
+
+                // now we have to predict star ratings for those titles
+
+                // look at the 5 NN
+                
+                var k = 5;
+                var weightedSum = 0;
+                var similaritySum = 0;
+
+                for (var j = 0; j < k; ++j){
+                    // remeber data.users is sorted according to similarity
+                    var jth_user = data.users[j];
+                    var jth_user_similarity = similarityScores[jth_user.name]; 
+                    var jth_user_rating = jth_user[title]
+                    if (jth_user_rating != null){
+                        weightedSum = weightedSum + jth_user_rating * jth_user_similarity;
+                        similaritySum = similaritySum + jth_user_similarity;
+                    } 
+                }
+                var predicted_rating = nf(weightedSum/similaritySum, 1, 2);
+                var div = createDiv(title + ':' + predicted_rating);
+                resultDivs.push(div);
+                div.parent(resultP);
+
+            }
         }
-
         
     }
 }
