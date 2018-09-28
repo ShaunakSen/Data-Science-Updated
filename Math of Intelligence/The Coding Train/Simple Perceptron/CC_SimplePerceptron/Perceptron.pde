@@ -7,9 +7,14 @@ float[] weights = new float[2];
 
 // constructor: here we loop through all the wts and give them a random value bw -1 and +1
 Perceptron(){
+  
   for(int i = 0; i < weights.length; ++i){
     weights[i] = random(-1, 1);
+    
   }
+  println("The wts are ...........................");
+  println(weights[0], weights[1]);
+  
   
   }
   
