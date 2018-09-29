@@ -33,6 +33,7 @@ Perceptron(){
   
   int guess(float[] inputs){
     //here we compute the weighted sum
+    
     float sum = 0;
     for (int i = 0; i < weights.length; ++i){
       sum += inputs[i] * weights[i];
