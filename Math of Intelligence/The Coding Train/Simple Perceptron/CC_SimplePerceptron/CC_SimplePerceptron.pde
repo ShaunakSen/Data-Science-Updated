@@ -1,11 +1,11 @@
-Perceptron p;
+Perceptron brain;
 
 // declare an array of 100 Point 
 Point[] points = new Point[100];
 
 void setup(){
   size(500, 500);
-  p = new Perceptron();
+  brain = new Perceptron();
   
   //initialie the points
   
@@ -14,13 +14,8 @@ void setup(){
   }
   
   float inputs[] = {-1, 0.5};
-  
-  // print the inputs
-  
-  println("The ips are ...........................");
-  println(inputs[0], inputs[1]);
-  
-  int guess = p.guess(inputs);
+ 
+  int guess = brain.guess(inputs);
   println(guess);
 }
 
@@ -32,9 +27,17 @@ void draw(){
   stroke(0);
   line(0, 0, width, height);
   
-  //for point in points
+  //for point in points, display the points
   
-  for (Point p : points){
-    p.show();
+  for (Point pt : points){
+    pt.show();
+  }
+  
+  // train each pt
+  
+  for (Point pt: points){
+    float[] inputs = {pt.x, pt.y};
+    brain.train(inputs, pt.label);
+    
   }
 }
