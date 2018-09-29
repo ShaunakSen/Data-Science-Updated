@@ -1,4 +1,4 @@
-class Perceptron {
+class test {
 
 // create an array to store wts
 float[] weights = new float[2];
@@ -9,13 +9,13 @@ float lr = 0.1;
 
 
 // constructor: here we loop through all the wts and give them a random value bw -1 and +1
-Perceptron(){
+test(){
   
   for(int i = 0; i < weights.length; ++i){
     weights[i] = random(-1, 1);
     
   }
-  println("The initial wts are ...........................");
+  println("The wts are ...........................");
   println(weights[0], weights[1]);
   
   
@@ -48,13 +48,6 @@ Perceptron(){
   
   void train(float[] inputs, int target){
     // compute the guess for the set of ips
-    
-    println("Before tuning the wts are ...........................");
-    println(weights[0], weights[1]);
-    
-    println("The inputs are ...........................");
-    println(inputs[0], inputs[1]);
-    
     int guess = guess(inputs);
     
     println("The guess is ...........................");
@@ -63,10 +56,7 @@ Perceptron(){
     // compute the error
     int error = target - guess;
     
-    println("The error is ...........................");
-    println(error);
-    
-    println("Tuning the wts ...........................");
+    println("T ...........................");
     
     // now that the error is known tune each wt
     
