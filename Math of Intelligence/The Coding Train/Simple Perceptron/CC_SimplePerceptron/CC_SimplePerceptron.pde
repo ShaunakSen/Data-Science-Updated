@@ -37,7 +37,6 @@ void draw(){
   }
   
   // initially color each pt red or green based on correct or incorrect
-  println("Coloring....................");
   for (Point pt: points){
     float[] inputs = {pt.x, pt.y};
     int target = pt.label;
