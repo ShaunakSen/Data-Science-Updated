@@ -8,7 +8,7 @@ Point[] points = new Point[100];
 
 void setup(){
   size(800, 880);
-  brain = new Perceptron();
+  brain = new Perceptron(3);
   
   //initialie the points
   
@@ -16,10 +16,6 @@ void setup(){
     points[i] = new Point();
   }
   
-  float inputs[] = {-1, 0.5};
- 
-  int guess = brain.guess(inputs);
-  println(guess);
 }
 
 void draw(){
@@ -28,7 +24,11 @@ void draw(){
   // boundry
   
   stroke(0);
-  line(0, height, width, 0);
+  
+  Point p1 = new Point(-1, f(-1));
+  Point p2 = new Point(1, f(1));
+  line(p1.pixelX(), p1.pixelY(), p2.pixelX(), p2.pixelY());
+  
   
   //for point in points, display the points
   
@@ -38,7 +38,7 @@ void draw(){
   
   // initially color each pt red or green based on correct or incorrect
   for (Point pt: points){
-    float[] inputs = {pt.x, pt.y};
+    float[] inputs = {pt.x, pt.y, pt.bias};
     int target = pt.label;
     int guess = brain.guess(inputs);
     if (guess == target){
@@ -50,19 +50,24 @@ void draw(){
     noStroke();
     ellipse(pt.pixelX(), pt.pixelY(), 16, 16);
   }
+  
+  
+  //move the next part to mousePressed() function if u want
+  
+  // train the perceptron using the next point and see how the wt changes and how that affects the labelling
+  Point required_point = points[counter];
+  float[] inputs = {required_point.x, required_point.y, required_point.bias};
+  int target = required_point.label;
+  brain.train(inputs, target);
+  if (counter < points.length - 1){
+    counter += 1;
+  } else {
+    counter = 0;
+  }
 }
 
 void mousePressed(){
 
-  // train the perceptron using the next point and see how the wt changes and how that affects the labelling
-  Point required_point = points[counter];
-  float[] inputs = {required_point.x, required_point.y};
-  int target = required_point.label;
-  brain.train(inputs, target);
-  if (counter < points.length){
-    counter += 1;
-  } else {
-    return;
-  }
+  
   
 }

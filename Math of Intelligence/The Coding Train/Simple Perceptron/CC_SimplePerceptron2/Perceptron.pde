@@ -1,7 +1,7 @@
 class Perceptron {
 
 // create an array to store wts
-float[] weights = new float[2];
+float[] weights;
 
 // initialize the learningrate
 float lr = 0.1;
@@ -9,8 +9,9 @@ float lr = 0.1;
 
 
 // constructor: here we loop through all the wts and give them a random value bw -1 and +1
-Perceptron(){
+Perceptron(int n){
   
+  weights = new float[n];
   for(int i = 0; i < weights.length; ++i){
     weights[i] = random(-1, 1);
     
