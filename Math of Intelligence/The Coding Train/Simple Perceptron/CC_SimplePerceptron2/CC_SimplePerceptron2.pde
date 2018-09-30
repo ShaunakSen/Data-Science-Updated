@@ -21,13 +21,19 @@ void setup(){
 void draw(){
   background(255);
   
-  // boundry
+  // visualizing the original line
   
   stroke(0);
   
   Point p1 = new Point(-1, f(-1));
   Point p2 = new Point(1, f(1));
   line(p1.pixelX(), p1.pixelY(), p2.pixelX(), p2.pixelY());
+  
+  // visualizing the predicted line
+  
+  Point p3 = new Point(-1, brain.guessY(-1));
+  Point p4 = new Point(1, brain.guessY(1));
+  line(p3.pixelX(), p3.pixelY(), p4.pixelX(), p4.pixelY());
   
   
   //for point in points, display the points

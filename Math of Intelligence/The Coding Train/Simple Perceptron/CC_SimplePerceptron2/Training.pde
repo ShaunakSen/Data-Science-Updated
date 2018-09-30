@@ -1,19 +1,20 @@
 float f(float x){
-  return -0.3 * x + 0.2;
+  return 0.89 * x - 0.1;
 }
 
 class Point {
   float x;
   float y;
   int label;
-  float bias;
+  // hard coding the bias input as 1
+  float bias = 1;
   
   // Overloading constructor for the case when u want the Point to be at a specific x and y
   
   Point (float x_, float y_){
     x = x_;
     y = y_;
-    bias = 1;
+   
   }
   
   //Constructor

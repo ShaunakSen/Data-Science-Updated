@@ -4,7 +4,7 @@ class Perceptron {
 float[] weights;
 
 // initialize the learningrate
-float lr = 0.1;
+float lr = 0.01;
 
 
 
@@ -52,7 +52,7 @@ Perceptron(int n){
     // compute the guess for the set of ips
     
     println("Before tuning the wts are ...........................");
-    println(weights[0], weights[1]);
+    println(weights[0], weights[1], weights[2]);
     
     println("The inputs are ...........................");
     println(inputs[0], inputs[1]);
@@ -77,8 +77,22 @@ Perceptron(int n){
     }
     
     println("After tuning the wts are ...........................");
-    println(weights[0], weights[1]);
+    println(weights[0], weights[1], weights[2]);
+    
     
     
   }
+  
+  float guessY(float x){
+    float w0 = weights[0];
+    float w1 = weights[1];
+    float w2 = weights[2];
+    
+    println("Eqn of line is ...........................");
+    println(-(w0/w1), "x + ", -(w2/w1));
+    
+    return -(w0/w1)*x - (w2/w1)*1;
+  }
+  
+ 
 }
