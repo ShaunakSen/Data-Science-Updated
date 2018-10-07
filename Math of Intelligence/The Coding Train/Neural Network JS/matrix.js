@@ -14,22 +14,58 @@ function Matrix(rows, cols){
     }
 }
 
-// scalar addition function
+// randomly populate values of the matrix
 
-Matrix.prototype.add = function(n){
+Matrix.prototype.randomize = function(){
     for(var i = 0; i < this.rows; ++i){
         for(var j = 0; j < this.cols; ++j){
-            this.matrix[i][j] += n;
+            this.matrix[i][j] = Math.floor(Math.random() * 10);
         }
     }
+}
+
+
+// addition function
+
+Matrix.prototype.add = function(n){
+
+    // check if n is a matrix
+
+    if (n instanceof Matrix){
+        for(var i = 0; i < this.rows; ++i){
+            for(var j = 0; j < this.cols; ++j){
+                this.matrix[i][j] += n.matrix[i][j];
+            }
+        }
+    } else 
+    // n is just a scalar number 
+    {
+        for(var i = 0; i < this.rows; ++i){
+            for(var j = 0; j < this.cols; ++j){
+                this.matrix[i][j] += n;
+            }
+        }
+    }
+
 }
 
 // scalar multiplication function
 
 Matrix.prototype.multiply = function(n){
-    for(var i = 0; i < this.rows; ++i){
-        for(var j = 0; j < this.cols; ++j){
-            this.matrix[i][j] *= n;
+    
+    if (n instanceof Matrix){
+        for(var i = 0; i < this.rows; ++i){
+            for(var j = 0; j < this.cols; ++j){
+                this.matrix[i][j] *= n.matrix[i][j];
+            }
+        }
+    } else {
+        for(var i = 0; i < this.rows; ++i){
+            for(var j = 0; j < this.cols; ++j){
+                this.matrix[i][j] *= n;
+            }
         }
     }
+    
 }
+
