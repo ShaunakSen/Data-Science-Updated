@@ -69,3 +69,60 @@ subject1$fullname
 # accessing several elems
 
 subject1[c("fullname", "temperature")]
+
+# -------------------------------------------------------------------------------
+
+# DATAFRAMES
+
+# A data frame is used for storing data tables. 
+# It is a collection of vectors or factors of equal length
+
+patient_data <- data.frame(subject_name, temperature, flu_status, symptoms, stringsAsFactors = FALSE)
+
+# accessing the df
+
+patient_data$symptoms
+
+
+patient_data[c("subject_name", "temperature")]
+
+
+# Individual entries can also be referenced by specifying rows and columns
+
+patient_data[2,2]
+
+# first and 3rd rows
+patient_data[c(1,3),]
+
+# first and 3rd rows, 1st and 4th cols
+
+patient_data[c(1,3), c(1,4)]
+
+# We can add rows to data frames using the function rbind (). Let's add an entry for a new patient:
+
+new_patient <- c("Mike", 40.5, TRUE, "SEVERE")
+
+patient_data <- rbind(patient_data, new_patient)
+
+# adding a new col: marital_status
+
+patient_data$married <- c(TRUE, TRUE, FALSE, FALSE)
+
+patient_data
+
+# -------------------------------------------------------------------------------
+
+# MATRIX
+
+# R also provides another data structure to store values in tabular form
+# Entries in a matrix must be homogeneous
+
+m <- matrix(c(1,2,3,"ok"), nrow = 2)
+m
+
+# all entries got converted to string to preserve same data type
+
+class(m[1,1])
+
+m <- matrix ( c(1, 2, 3, 4), nrow = 2) 
+m
