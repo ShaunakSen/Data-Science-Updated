@@ -126,3 +126,61 @@ class(m[1,1])
 
 m <- matrix ( c(1, 2, 3, 4), nrow = 2) 
 m
+
+# -------------------------------------------------------------------------------
+
+# EXERCISE 1
+
+# 1: Calculate the square root of 719
+
+sqrt(719)
+
+# 2: Create a new variable "b" and assign it the value 178.0. Print b.
+
+b <- 178.0
+
+b
+
+# 3: Convert the data type of "b" from the previous exercise to character. Print b.
+
+b <- as.character(b)
+b
+
+# 4: Create a vector of numbers from 1 to 6. Find out its class. Create a vector with the "mixed" elements 1,2, "a" and "b". Find out its class.
+
+vec1 <- c(1:6)
+class(vec1)
+
+# class becomes class of the highest casted elem 
+
+vec2 <- c(1,2,"a","b")
+class(vec2)
+
+# 5: Initialize a character vector of size 30 and assign "a" to the first element of the vector.
+
+vec3 <- vector(mode = "character", length = 30)
+
+vec3
+
+vec3[1] <- "a"
+
+vec3
+
+# 6: Create a vector with some of your friends names. Determine the length of that vector. 
+# Get the second and third friends of that vector. 
+# Sort that vector (explore the use of the "sort" and "order" functions). 
+# sSort that vector in reverse order.
+
+friends <- c("mini", "paddy", "bhagu", "saurav", "suraj")
+friends[2]
+friends[3]
+
+sort(friends)
+# rank gives rank of each elem 
+rank(friends)
+
+# order is more complicated. order(friends) = 3 1 2 4 5 
+# => 1st rank elem is in 3rd pos, 2nd is in 1st.. so on
+order(friends)
+
+sort(friends, decreasing = TRUE)
