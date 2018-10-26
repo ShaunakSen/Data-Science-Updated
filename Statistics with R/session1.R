@@ -184,3 +184,15 @@ rank(friends)
 order(friends)
 
 sort(friends, decreasing = TRUE)
+
+# 7: Explore the use of "rep" and "seq" to initialize vectors and generate the vector 
+# ('a','a',1,2,3,4,5,7,9,11) using these commands.
+
+vec4 <- rep('a', 2)
+vec4
+vec5 <- seq(1, 4)
+vec6 <- seq(5, 11, by = 2)
+
+vec7 <- c(vec4, vec5, vec6)
+
+vec7
