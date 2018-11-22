@@ -189,7 +189,7 @@ sort(friends, decreasing = TRUE)
 # ('a','a',1,2,3,4,5,7,9,11) using these commands.
 
 vec4 <- rep('a', 2)
-vec4
+vec4e
 vec5 <- seq(1, 4)
 vec6 <- seq(5, 11, by = 2)
 
